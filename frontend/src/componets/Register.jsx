@@ -42,7 +42,7 @@ export default function Register({ onNavigate }) {
                         <input
                             type="text"
                             className="auth-input"
-                            placeholder="John Doe"
+                            placeholder="Full Name"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             required
@@ -53,7 +53,7 @@ export default function Register({ onNavigate }) {
                         <input
                             type="email"
                             className="auth-input"
-                            placeholder="john@example.com"
+                            placeholder="abc@gmail.com"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
@@ -64,7 +64,6 @@ export default function Register({ onNavigate }) {
                         <input
                             type="text"
                             className="auth-input"
-                            placeholder="+1 234 567 8900"
                             value={formData.mobile}
                             onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
                             required
@@ -75,7 +74,6 @@ export default function Register({ onNavigate }) {
                         <input
                             type="text"
                             className="auth-input"
-                            placeholder="123 Main St, City"
                             value={formData.address}
                             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                             required
@@ -107,3 +105,4 @@ export default function Register({ onNavigate }) {
         </div>
     );
 }
+
