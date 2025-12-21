@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from './card.jsx';
-import API from './api';
+import API from '../api';
 
 function StudentList() {
   const [students, setStudents] = useState([]);

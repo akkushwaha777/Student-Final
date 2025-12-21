@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Card from './card';
-import API from './api';
+import API from '../api';
 
 function ItemForm({ onTaskAdded }) {
   const [formData, setFormData] = useState({

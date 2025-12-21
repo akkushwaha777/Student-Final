@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import API from './api';
+import API from '../api';
 
 export default function Login({ onLogin, onNavigate }) {
     const [formData, setFormData] = useState({ email: '', password: '' });

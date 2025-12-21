@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import API from './api';
+import API from '../api';
 
 const StarRating = ({ rating }) => {
   // Mock rating for now as backend doesn't store it yet

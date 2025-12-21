@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import API from './api';
+import API from '../api';
 
 export default function Register({ onNavigate }) {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', mobile: '', address: '' });
