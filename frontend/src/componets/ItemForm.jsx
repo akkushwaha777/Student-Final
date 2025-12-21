@@ -18,7 +18,7 @@ function ItemForm({ onTaskAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.description) {
+    if (!formData.title.trim() || !formData.description.trim()) {
       setMessage('❌ Please fill all fields!');
       setTimeout(() => setMessage(''), 3000);
       return;

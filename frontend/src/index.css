@@ -800,8 +800,13 @@ footer p:last-child {
     padding-bottom: 80px;
     /* Space for bottom navigation if we had one, or just breathing room */
   }
+}
 
-  /* Make forms more touch-friendly */
+/* === Android/Mobile UI Adjustments === */
+/* Ensures better experience on Android and other mobile devices */
+@media (max-width: 600px) {
+
+  /* ... existing mobile styles ... */
   .form {
     padding: 20px;
     margin-bottom: 25px;

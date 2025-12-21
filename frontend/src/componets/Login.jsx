@@ -41,7 +41,6 @@ export default function Login({ onLogin, onNavigate }) {
                         <input
                             type="email"
                             className="auth-input"
-                            placeholder="your.email@example.com"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
@@ -52,7 +51,6 @@ export default function Login({ onLogin, onNavigate }) {
                         <input
                             type="password"
                             className="auth-input"
-                            placeholder="Enter your password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             required
