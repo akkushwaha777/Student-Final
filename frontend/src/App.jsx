@@ -93,7 +93,7 @@ export default function App() {
   }
 
   return (
-    <div className={`app-container ${theme}`}>
+    <div className={`app-container ${theme} d-flex flex-column min-vh-100`}>
       <Navbar
         onNavigate={navigate}
         currentPage={currentPage}

@@ -1,54 +1,74 @@
 import { useState } from 'react';
-import API from '../api';
+import API from './api';
 
 export default function Login({ onLogin, onNavigate }) {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError('');
         try {
             const { data } = await API.post('/users/login', formData);
             onLogin(data);
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed');
+            setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="container mt-5" style={{ maxWidth: '400px' }}>
-            <div className="card shadow p-4">
-                <h2 className="text-center mb-4">Login</h2>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label>Email</label>
+        <div className="auth-wrapper">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h2 className="auth-title">Welcome Back</h2>
+                    <p className="auth-subtitle">Sign in to access your student portal</p>
+                </div>
+
+                {error && (
+                    <div className="alert alert-danger">
+                        <i className="fas fa-exclamation-circle me-2"></i>
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="form-group">
+                        <label className="auth-label">Email Address</label>
                         <input
                             type="email"
-                            className="form-control"
+                            className="auth-input"
+                            placeholder="your.email@example.com"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
                         />
                     </div>
-                    <div className="mb-3">
-                        <label>Password</label>
+                    <div className="form-group">
+                        <label className="auth-label">Password</label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="auth-input"
+                            placeholder="Enter your password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">Login</button>
-                </form>
-                <p className="mt-3 text-center">
-                    Don't have an account?{' '}
-                    <button className="btn btn-link p-0" onClick={() => onNavigate('register')}>
-                        Register
+                    <button type="submit" className="auth-btn" disabled={isLoading}>
+                        {isLoading ? 'Signing in...' : 'Sign In'}
                     </button>
-                </p>
+                </form>
+
+                <div className="auth-footer">
+                    New to the portal?
+                    <button className="auth-link" onClick={() => onNavigate('register')}>
+                        Create an Account
+                    </button>
+                </div>
             </div>
         </div>
     );

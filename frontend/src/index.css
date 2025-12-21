@@ -203,6 +203,7 @@ body {
   font-weight: 800;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
   letter-spacing: -0.5px;
@@ -331,6 +332,7 @@ body {
   margin: 0;
   background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
 }
@@ -785,21 +787,59 @@ footer p:last-child {
   }
 }
 
-.btn-danger {
-  padding: 12px 20px;
-  border: none;
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-  color: white;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  width: 100%;
-  margin-top: 15px;
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+@media (max-width: 768px) {
+  .btn-danger {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* === Mobile Quality of Life Improvements === */
+@media (max-width: 600px) {
+  .app-container {
+    padding-bottom: 80px;
+    /* Space for bottom navigation if we had one, or just breathing room */
+  }
+
+  /* Make forms more touch-friendly */
+  .form {
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+
+  .form input,
+  .form textarea,
+  .form .btn-primary {
+    padding: 12px;
+    font-size: 16px;
+    /* Prevents iOS zoooming */
+  }
+
+  /* Improve typography for small screens */
+  .hero-banner {
+    padding: 2rem 1rem;
+  }
+
+  .hero-content h6 {
+    font-size: 2rem;
+  }
+
+  .hero-sub {
+    font-size: 1.5rem;
+  }
+
+  .premium-footer {
+    padding: 1.5rem;
+  }
+}
+
+/* Fix standard background-clip */
+.brand {
+  background-clip: text;
+}
+
+.hero-content h6 {
+  background-clip: text;
 }
 
 .btn-danger:hover {
@@ -1159,4 +1199,232 @@ footer p:last-child {
   .product-price {
     font-size: 1.2rem;
   }
+}
+
+/* ===== PREMIUM AUTHENTICATION STYLES ===== */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .auth-wrapper {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.auth-wrapper::before,
+.auth-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.auth-wrapper::before {
+  background: rgba(102, 126, 234, 0.4);
+  top: -50px;
+  left: -50px;
+}
+
+.auth-wrapper::after {
+  background: rgba(118, 75, 162, 0.4);
+  bottom: -50px;
+  right: -50px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 10;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .auth-card {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.auth-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.dark .auth-title {
+  text-shadow: 0 2px 10px rgba(118, 75, 162, 0.3);
+}
+
+.auth-subtitle {
+  color: #718096;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.dark .auth-subtitle {
+  color: #94a3b8;
+}
+
+.auth-form .form-group {
+  margin-bottom: 24px;
+}
+
+.auth-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.dark .auth-label {
+  color: #cbd5e0;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.dark .auth-input {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.auth-input:focus {
+  outline: none;
+  background: white;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+  transform: translateY(-1px);
+}
+
+.dark .auth-input:focus {
+  background: #1e293b;
+  border-color: #764ba2;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.auth-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(118, 75, 162, 0.4);
+}
+
+.auth-btn:active {
+  transform: translateY(-1px);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #718096;
+  font-size: 0.95rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .auth-footer {
+  color: #94a3b8;
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+.auth-link {
+  color: #667eea;
+  font-weight: 700;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: all 0.2s;
+  border-radius: 6px;
+}
+
+.auth-link:hover {
+  color: #764ba2;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Alert Styling */
+.alert {
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background: rgba(254, 215, 215, 0.5);
+  color: #c53030;
+  border: 1px solid rgba(254, 215, 215, 0.5);
+}
+
+.dark .alert-danger {
+  background: rgba(245, 101, 101, 0.2);
+  color: #fc8181;
+  border-color: rgba(245, 101, 101, 0.2);
 }
