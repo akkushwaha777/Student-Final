@@ -21,6 +21,7 @@ export default function App() {
 
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
+  const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -63,7 +64,12 @@ export default function App() {
     setTheme(newTheme);
   };
 
-  const navigate = (key) => setCurrentPage(key);
+  const navigate = (key) => {
+    setCurrentPage(key);
+    if (key !== 'itemform') {
+      setEditingTask(null);
+    }
+  };
 
   const deleteHomeTask = async (id) => {
     try {
@@ -122,6 +128,10 @@ export default function App() {
                     completed={task.status === 'completed'}
                     onToggle={() => toggleHomeTask(task)}
                     onDelete={() => deleteHomeTask(task._id)}
+                    onEdit={() => {
+                      setEditingTask(task);
+                      navigate('itemform');
+                    }}
                   />
                 </div>
               ))}
@@ -135,7 +145,14 @@ export default function App() {
 
       {currentPage === 'itemform' && (
         <div className="container my-3">
-          <ItemForm onTaskAdded={fetchTasks} />
+          <ItemForm
+            onTaskAdded={fetchTasks}
+            tasks={tasks}
+            editingTask={editingTask}
+            setEditingTask={setEditingTask}
+            onDelete={deleteHomeTask}
+            onToggle={toggleHomeTask}
+          />
         </div>
       )}
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const Card = ({ title, description, category, details, actionText = 'More Details', completed, onToggle, onDelete }) => {
+const Card = ({ title, description, category, details, actionText = 'More Details', completed, onToggle, onDelete, onEdit }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [liked, setLiked] = useState(false);
   const [purchased, setPurchased] = useState(false);
@@ -16,7 +16,7 @@ const Card = ({ title, description, category, details, actionText = 'More Detail
 
   const handleComplete = () => {
     setDone(!done);
-    if(onToggle) onToggle();
+    if (onToggle) onToggle();
   };
 
   const handleRead = () => setRead(!read);
@@ -40,13 +40,20 @@ const Card = ({ title, description, category, details, actionText = 'More Detail
           >
             {done ? 'Completed' : 'Mark Complete'}
           </button>
+
+          {typeof onEdit === 'function' && (
+            <button className="btn btn-sm btn-outline-primary" onClick={onEdit}>
+              Edit
+            </button>
+          )}
+
           {typeof onDelete === 'function' && (
             <button className="btn btn-sm btn-outline-danger" onClick={onDelete}>
               Delete
             </button>
           )}
         </div>
-        
+
         {showDetails && details && (
           <div className="card-details">
             {Object.entries(details).map(([key, value]) => (
@@ -57,35 +64,35 @@ const Card = ({ title, description, category, details, actionText = 'More Detail
           </div>
         )}
       </div>
-      
+
       <div className="card-footer">
         <div className="button-group">
-          <button 
+          <button
             className={`btn-like ${liked ? 'active' : ''}`}
             onClick={handleLike}
           >
             {liked ? ' Liked' : ' Like'}
           </button>
 
-          <button 
+          <button
             className={`btn-purchase ${purchased ? 'active' : ''}`}
             onClick={handlePurchase}>
             {purchased ? ' Purchased' : ' Purchase'}
           </button>
 
-          <button 
+          <button
             className={`btn-complete ${done ? 'active' : ''}`}
             onClick={handleComplete}>
             {done ? ' Completed' : ' Mark as Done'}
           </button>
 
-          <button 
+          <button
             className={`btn-read ${read ? 'active' : ''}`}
             onClick={handleRead}>
             {read ? ' Read' : ' Read'}
           </button>
 
-          <button 
+          <button
             className="btn-expand"
             onClick={toggleDetails}
           >

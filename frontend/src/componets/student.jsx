@@ -11,6 +11,7 @@ function StudentList() {
     course: '',
     age: ''
   });
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     fetchStudents();
@@ -37,21 +38,41 @@ function StudentList() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/students', formData);
+      if (editingId) {
+        await API.put(`/students/${editingId}`, formData);
+        setEditingId(null);
+      } else {
+        await API.post('/students', formData);
+      }
       setFormData({ name: '', email: '', course: '', age: '' });
       setIsAdding(false);
       fetchStudents();
     } catch (err) {
-      console.error("Failed to add student", err);
-      alert('Failed to add student');
+      console.error("Failed to save student", err);
+      alert('Failed to save student');
     }
+  };
+
+  const handleEdit = (student) => {
+    setFormData({
+      name: student.name,
+      email: student.email,
+      course: student.course,
+      age: student.age
+    });
+    setEditingId(student._id);
+    setIsAdding(true);
   };
 
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1 className="hero-sub mb-0">Student List</h1>
-        <button className="btn btn-primary" onClick={() => setIsAdding(!isAdding)}>
+        <button className="btn btn-primary" onClick={() => {
+          setIsAdding(!isAdding);
+          setEditingId(null);
+          setFormData({ name: '', email: '', course: '', age: '' });
+        }}>
           {isAdding ? 'Cancel' : 'Add Student'}
         </button>
       </div>
@@ -99,7 +120,7 @@ function StudentList() {
                 />
               </div>
               <div className="col-md-1">
-                <button type="submit" className="btn btn-success w-100">Save</button>
+                <button type="submit" className="btn btn-success w-100">{editingId ? 'Update' : 'Save'}</button>
               </div>
             </div>
           </form>
@@ -118,6 +139,7 @@ function StudentList() {
             }}
             actionText="More Details"
             onDelete={() => deleteStudent(student._id)}
+            onEdit={() => handleEdit(student)}
           />
         ))}
         {students.length === 0 && <p>No students found.</p>}
